@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void addEventInCalender() {
         final Appointment appointment  = new Appointment();
-        appointment.setStartTime(1566633600);   //  Saturday, 24 August 2019 08:00:00
-        appointment.setEndTime(1566637200);     //  Saturday, 24 August 2019 09:00:00
+        appointment.setStartTime(1566633600000L);   //  Saturday, 24 August 2019 08:00:00
+        appointment.setEndTime(1566637200000L);     //  Saturday, 24 August 2019 09:00:00
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, permissions, 5);
+            ActivityCompat.requestPermissions(this, permissions, 200);
             Log.d(TAG, "SOME PERMISSION NOT GRANTED");
 
         } else {
@@ -62,7 +62,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int callbackId, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int permsRequestCode, String permissions[], int[] grantResults) {
+
+        switch (permsRequestCode) {
+
+            case 200:
+
+                break;
+
+        }
 
         Log.d(TAG, "permissions : "+ permissions.toString());
         Log.d(TAG, "grantResults : "+ grantResults.toString());

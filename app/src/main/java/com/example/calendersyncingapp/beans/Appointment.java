@@ -9,15 +9,15 @@ public class Appointment {
 //
 //    private Mentor mentor;
 
-    private long startTime;
+    private Long startTime;
 
-    private long endTime;
+    private Long endTime;
 
     private String status;
 
-    private long createdTime;
+    private Long createdTime;
 
-    private long lastUpdatedTime;
+    private Long lastUpdatedTime;
 
     private String mentorRemarks;
 
@@ -34,19 +34,19 @@ public class Appointment {
         this.id = id;
     }
 
-    public long getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
 
@@ -58,19 +58,19 @@ public class Appointment {
         this.status = status;
     }
 
-    public long getCreatedTime() {
+    public Long getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(long createdTime) {
+    public void setCreatedTime(Long createdTime) {
         this.createdTime = createdTime;
     }
 
-    public long getLastUpdatedTime() {
+    public Long getLastUpdatedTime() {
         return lastUpdatedTime;
     }
 
-    public void setLastUpdatedTime(long lastUpdatedTime) {
+    public void setLastUpdatedTime(Long lastUpdatedTime) {
         this.lastUpdatedTime = lastUpdatedTime;
     }
 
