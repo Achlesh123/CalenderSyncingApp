@@ -1,17 +1,15 @@
 package com.example.calendersyncingapp.manager;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.Handler;
 import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.calendersyncingapp.base.CalenderSyncApplication;
 import com.example.calendersyncingapp.beans.Appointment;
+import com.example.calendersyncingapp.beans.AppointmentDemo;
 
 import java.util.TimeZone;
 
@@ -30,7 +28,7 @@ public class CalenderSyncManager {
         return mInstance;
     }
 
-    public void addEventToCalender(Context ourActivity, Appointment appointment) {
+    public void addEventToCalender(Context ourActivity, AppointmentDemo appointmentDemo) {
         try {
             String eventUriString = "content://com.android.calendar/events";
             ContentValues eventValues = new ContentValues();
@@ -38,15 +36,17 @@ public class CalenderSyncManager {
             eventValues.put(Events.TITLE, "My First Calender Event");
             eventValues.put(Events.DESCRIPTION, "My Description");
 //            eventValues.put(Events.EVENT_LOCATION, "Noida,UP ");
-            eventValues.put(Events.DTSTART, appointment.getStartTime());
-            eventValues.put(Events.DTEND, appointment.getEndTime());
+            eventValues.put(Events.DTSTART, appointmentDemo.getStartTime());
+            eventValues.put(Events.DTEND, appointmentDemo.getEndTime());
             eventValues.put(Events.ALL_DAY, 0); // 1 for whole day //If it is bithday alarm or such
             eventValues.put(Events.STATUS, 1); // This information is
             eventValues.put(Events.EVENT_TIMEZONE, TimeZone.getTimeZone(TimeZone.getDefault().getID()).getID());
             eventValues.put(Events.HAS_ALARM, 0); // 0 for false, 1 for true
+            eventValues.put(Events.CAN_PARTIALLY_UPDATE, 1);
+            eventValues.put(Events.CALENDAR_ACCESS_LEVEL, 200);
             Uri eventUri = ourActivity.getApplicationContext().getContentResolver().insert(Uri.parse(eventUriString), eventValues);
             long eventID = Long.parseLong(eventUri.getLastPathSegment());
-            Log.i("eventID", eventID + "Event added to calender successfuly.");
+            Log.i("eventID", eventID + " Event added to calender successfuly.");
             Toast.makeText(CalenderSyncApplication.getInstance().getApplicationContext(), "Event Added", Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
             Log.e("error", "Error in adding event on calendar" + ex.getMessage());
@@ -82,6 +82,32 @@ public class CalenderSyncManager {
 //        }
 
         return calendarUriBase;
+    }
+
+
+
+    public void addOriginalAppointmentToCalender(Context ourActivity, Appointment appointment) {
+        try {
+            String eventUriString = "content://com.android.calendar/events";
+            ContentValues eventValues = new ContentValues();
+            eventValues.put(Events.CALENDAR_ID, 1); // id, We need to choose from         // our mobile for primary its 1
+            eventValues.put(Events.TITLE, "Your call appointment is schedule with "+appointment.getMentee().getName());
+            eventValues.put(Events.DESCRIPTION, appointment.getMenteeRemarks());
+//            eventValues.put(Events.EVENT_LOCATION, "Noida,UP ");
+            eventValues.put(Events.DTSTART, appointment.getStartTime());
+            eventValues.put(Events.DTEND, appointment.getEndTime());
+            eventValues.put(Events.ALL_DAY, 0); // 1 for whole day //If it is bithday alarm or such
+            eventValues.put(Events.STATUS, 1); // This information is
+            eventValues.put(Events.EVENT_TIMEZONE, TimeZone.getTimeZone(TimeZone.getDefault().getID()).getID());
+            eventValues.put(Events.HAS_ALARM, 0); // 0 for false, 1 for true
+            Uri eventUri = ourActivity.getApplicationContext().getContentResolver().insert(Uri.parse(eventUriString), eventValues);
+            long eventID = Long.parseLong(eventUri.getLastPathSegment());
+            Log.i("eventID", eventID + "Event added to calender successfuly.");
+            Toast.makeText(CalenderSyncApplication.getInstance().getApplicationContext(), "Event Added", Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            Log.e("error", "Error in adding event on calendar" + ex.getMessage());
+        }
+
     }
 
 

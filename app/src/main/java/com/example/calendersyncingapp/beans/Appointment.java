@@ -1,92 +1,133 @@
 package com.example.calendersyncingapp.beans;
 
-public class Appointment {
+import com.google.gson.annotations.SerializedName;
 
+public class Appointment{
 
-    private String id;
+	@SerializedName("mentor_remarks")
+	private String mentorRemarks;
 
-//    private Mentee mentee;
-//
-//    private Mentor mentor;
+	@SerializedName("created_time")
+	private long createdTime;
 
-    private Long startTime;
+	@SerializedName("start_time")
+	private long startTime;
 
-    private Long endTime;
+	@SerializedName("mentor")
+	private Mentor mentor;
 
-    private String status;
+	@SerializedName("last_updated_time")
+	private long lastUpdatedTime;
 
-    private Long createdTime;
+	@SerializedName("end_time")
+	private long endTime;
 
-    private Long lastUpdatedTime;
+	@SerializedName("id")
+	private String id;
 
-    private String mentorRemarks;
+	@SerializedName("mentee")
+	private Mentee mentee;
 
-    private String menteeRemarks;
+	@SerializedName("mentee_remarks")
+	private String menteeRemarks;
 
-    public Appointment() {
-    }
+	@SerializedName("status")
+	private String status;
 
-    public String getId() {
-        return id;
-    }
+	public void setMentorRemarks(String mentorRemarks){
+		this.mentorRemarks = mentorRemarks;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getMentorRemarks(){
+		return mentorRemarks;
+	}
 
-    public Long getStartTime() {
-        return startTime;
-    }
+	public void setCreatedTime(long createdTime){
+		this.createdTime = createdTime;
+	}
 
-    public void setStartTime(Long startTime) {
-        this.startTime = startTime;
-    }
+	public long getCreatedTime(){
+		return createdTime;
+	}
 
-    public Long getEndTime() {
-        return endTime;
-    }
+	public void setStartTime(long startTime){
+		this.startTime = startTime;
+	}
 
-    public void setEndTime(Long endTime) {
-        this.endTime = endTime;
-    }
+	public long getStartTime(){
+		return startTime;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setMentor(Mentor mentor){
+		this.mentor = mentor;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public Mentor getMentor(){
+		return mentor;
+	}
 
-    public Long getCreatedTime() {
-        return createdTime;
-    }
+	public void setLastUpdatedTime(long lastUpdatedTime){
+		this.lastUpdatedTime = lastUpdatedTime;
+	}
 
-    public void setCreatedTime(Long createdTime) {
-        this.createdTime = createdTime;
-    }
+	public long getLastUpdatedTime(){
+		return lastUpdatedTime;
+	}
 
-    public Long getLastUpdatedTime() {
-        return lastUpdatedTime;
-    }
+	public void setEndTime(long endTime){
+		this.endTime = endTime;
+	}
 
-    public void setLastUpdatedTime(Long lastUpdatedTime) {
-        this.lastUpdatedTime = lastUpdatedTime;
-    }
+	public long getEndTime(){
+		return endTime;
+	}
 
-    public String getMentorRemarks() {
-        return mentorRemarks;
-    }
+	public void setId(String id){
+		this.id = id;
+	}
 
-    public void setMentorRemarks(String mentorRemarks) {
-        this.mentorRemarks = mentorRemarks;
-    }
+	public String getId(){
+		return id;
+	}
 
-    public String getMenteeRemarks() {
-        return menteeRemarks;
-    }
+	public void setMentee(Mentee mentee){
+		this.mentee = mentee;
+	}
 
-    public void setMenteeRemarks(String menteeRemarks) {
-        this.menteeRemarks = menteeRemarks;
-    }
+	public Mentee getMentee(){
+		return mentee;
+	}
+
+	public void setMenteeRemarks(String menteeRemarks){
+		this.menteeRemarks = menteeRemarks;
+	}
+
+	public String getMenteeRemarks(){
+		return menteeRemarks;
+	}
+
+	public void setStatus(String status){
+		this.status = status;
+	}
+
+	public String getStatus(){
+		return status;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"Appointment{" + 
+			"mentor_remarks = '" + mentorRemarks + '\'' + 
+			",created_time = '" + createdTime + '\'' + 
+			",start_time = '" + startTime + '\'' + 
+			",mentor = '" + mentor + '\'' + 
+			",last_updated_time = '" + lastUpdatedTime + '\'' + 
+			",end_time = '" + endTime + '\'' + 
+			",id = '" + id + '\'' + 
+			",mentee = '" + mentee + '\'' + 
+			",mentee_remarks = '" + menteeRemarks + '\'' + 
+			",status = '" + status + '\'' + 
+			"}";
+		}
 }

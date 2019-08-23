@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.calendersyncingapp.beans.Appointment;
+import com.example.calendersyncingapp.beans.AppointmentDemo;
 import com.example.calendersyncingapp.manager.CalenderSyncManager;
-
-import java.util.ArrayList;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +23,51 @@ public class MainActivity extends AppCompatActivity {
         checkForPermission();
     }
 
+
+    public void addOrignalAppointment() {
+
+        String jsonString = "{\n" +
+                "  \"created_time\": 1566553802180,\n" +
+                "  \"end_time\": 1566653444659,\n" +
+                "  \"id\": \"039ba072-397d-4869-8585-7ba28e0da6dc\",\n" +
+                "  \"last_updated_time\": 1566553845981,\n" +
+                "  \"mentee\": {\n" +
+                "    \"name\": \"HimanshuRR\",\n" +
+                "    \"url\": \"\",\n" +
+                "    \"user_id\": 1126\n" +
+                "  },\n" +
+                "  \"mentee_remarks\": \"Yes I am looking to buy this domain may the force really good at it and the first one is for the delay I had a chance for you to see you tomorrow morning to you\",\n" +
+                "  \"mentor\": {\n" +
+                "    \"name\": \"Ravichandran\",\n" +
+                "    \"url\": \"\",\n" +
+                "    \"user_id\": 1233\n" +
+                "  },\n" +
+                "  \"mentor_remarks\": \"Yes I am looking to buy this domain may the force really good at it and the first one is for the delay I had a chance for you to see you tomorrow morning to you\",\n" +
+                "  \"start_time\": 1566649844659,\n" +
+                "  \"status\": \"ACCEPTED\"\n" +
+                "}";
+        Gson gson = new Gson();
+        final Appointment appointment = gson.fromJson(jsonString, Appointment.class);
+
+        for(int i=0; i<3; i++) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    CalenderSyncManager.getInstance().addOriginalAppointmentToCalender(MainActivity.this,appointment);
+                }
+            }, 1000);
+        }
+
+    }
+
     public void addEventInCalender() {
-        final Appointment appointment  = new Appointment();
-        appointment.setStartTime(1566633600000L);   //  Saturday, 24 August 2019 08:00:00
-        appointment.setEndTime(1566637200000L);     //  Saturday, 24 August 2019 09:00:00
+        final AppointmentDemo appointmentDemo = new AppointmentDemo();
+        appointmentDemo.setStartTime(1566633600000L);   //  Saturday, 24 August 2019 08:00:00
+        appointmentDemo.setEndTime(1566637200000L);     //  Saturday, 24 August 2019 09:00:00
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                CalenderSyncManager.getInstance().addEventToCalender(MainActivity.this, appointment);
+                CalenderSyncManager.getInstance().addEventToCalender(MainActivity.this, appointmentDemo);
             }
         }, 5000);
     }
@@ -57,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             Log.d(TAG, "PERMISSION GRANTED");
-            addEventInCalender();
+            addOrignalAppointment();
         }
     }
 
@@ -67,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
         switch (permsRequestCode) {
 
             case 200:
+
+                boolean calenderGranted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+
+                if(calenderGranted) {
+                    addOrignalAppointment();
+                }
 
                 break;
 
