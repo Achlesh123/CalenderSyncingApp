@@ -9,8 +9,11 @@ import android.util.Log;
 
 import com.example.calendersyncingapp.beans.Appointment;
 import com.example.calendersyncingapp.beans.AppointmentDemo;
+import com.example.calendersyncingapp.beans.CalendarEvent;
 import com.example.calendersyncingapp.manager.CalenderSyncManager;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,14 +52,20 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         final Appointment appointment = gson.fromJson(jsonString, Appointment.class);
 
-        for(int i=0; i<3; i++) {
+//        for(int i=0; i<3; i++) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    CalenderSyncManager.getInstance().addOriginalAppointmentToCalender(MainActivity.this,appointment);
+
+                    ArrayList<String> eventArrayList = CalenderSyncManager.getInstance().readCalendarEvent(MainActivity.this);
+
+                    if(!eventArrayList.contains(appointment.getId())) {
+                        CalenderSyncManager.getInstance().addOriginalAppointmentToCalender(MainActivity.this,appointment);
+                    }
+
                 }
-            }, 1000);
-        }
+            }, 3000);
+//        }
 
     }
 
